@@ -17,6 +17,8 @@ export interface TimelineEvent {
     month?: string;
     day?: string;
     title: string;
+    /** Optional list of tags (e.g. ['#tag1', '#tag2']) */
+    tags?: string[];
     content: string;
 }
 

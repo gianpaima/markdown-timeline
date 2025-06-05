@@ -131,14 +131,17 @@ export function renderTimelineEvents(
 		const timeline = container.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE });
 
 		for (const event of filteredEvents) {
-			const eventEl = timeline.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_EVENT });
+                        const eventEl = timeline.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_EVENT });
 
-			// Create a container for date and point
-			const datePointContainer = eventEl.createEl("div", { cls: "timeline-date-point" });
-			const dateDisplay = formatDate(event, plugin as TimelinePlugin);
-			datePointContainer.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_DATE, text: dateDisplay });
+                        // Create a container for date, tags and point
+                        const datePointContainer = eventEl.createEl("div", { cls: "timeline-date-point" });
+                        const dateDisplay = formatDate(event, plugin as TimelinePlugin);
+                        datePointContainer.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_DATE, text: dateDisplay });
+                        if (event.tags && event.tags.length > 0) {
+                                datePointContainer.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_TAGS, text: event.tags.join(' ') });
+                        }
 
-			datePointContainer.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_POINT });
+                        datePointContainer.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_POINT });
 			const contentEl = eventEl.createEl("div", { cls: TIMELINE_CLASSES.TIMELINE_CONTENT });
 			contentEl.createEl("h3", { text: event.title });
 			const markdownContent = contentEl.createDiv(TIMELINE_CLASSES.TIMELINE_MARKDOWN_CONTENT);

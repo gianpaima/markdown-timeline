@@ -10,6 +10,7 @@ A plugin for [Obsidian](https://obsidian.md) that creates a timeline view of you
 - Ascending or descending timeline order
 - Search and filter timeline events
 - Add new events directly from the timeline view
+- Display event tags below the date using `#` hashtags
 
 ## Usage
 
@@ -18,12 +19,14 @@ Create a timeline by using the `timeline` code block:
 ```markdown
 ```timeline
 # 2024-03-21
+#release #plugin
 ## Launch of Timeline Plugin
 First release of the Timeline plugin for Obsidian.
 
 ---
 
 # -500-03-15
+#ancient #history
 ## Ancient Event
 This event happened in 500 BCE.
 ```
@@ -58,6 +61,7 @@ Each timeline entry should follow this format:
 
 ```markdown
 # YYYY[-MM[-DD]]
+#tag1 #tag2
 ## Title
 Content (in markdown)
 ```
@@ -67,8 +71,11 @@ Content (in markdown)
   - Month (optional): 1-12
   - Day (optional): 1-31
 - The title line starts with `##`
+- A line of hashtags (e.g. `#tag1 #tag2`) can appear after the date to add tags
 - The content can include any valid markdown
 - Entries are separated by `---`
+
+Tags will be displayed under the date in the timeline view. They follow the standard Obsidian `#tag` syntax.
 
 ## Installation
 

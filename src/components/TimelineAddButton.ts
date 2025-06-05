@@ -28,12 +28,19 @@ export class AddEventModal extends Modal {
 				text.inputEl.style.width = "100%";
 			});
 
-		const titleInput = new Setting(contentEl)
-			.setName("Title")
-			.addText((text) => {
-				text.setPlaceholder("Event Title");
-				text.inputEl.style.width = "100%";
-			});
+                const titleInput = new Setting(contentEl)
+                        .setName("Title")
+                        .addText((text) => {
+                                text.setPlaceholder("Event Title");
+                                text.inputEl.style.width = "100%";
+                        });
+
+                const tagsInput = new Setting(contentEl)
+                        .setName("Tags")
+                        .addText((text) => {
+                                text.setPlaceholder("#tag1 #tag2");
+                                text.inputEl.style.width = "100%";
+                        });
 
 		const contentInput = new Setting(contentEl)
 			.setName("Content")
@@ -82,25 +89,33 @@ export class AddEventModal extends Modal {
 						return;
 					}
 
-					const contentValue =
-						contentInput.settingEl.querySelector("textarea")
-							?.value || "";
-					if (!contentValue) {
-						console.error("Content input is empty");
-						return;
-					}
+                                        const contentValue =
+                                                contentInput.settingEl.querySelector("textarea")
+                                                        ?.value || "";
+                                        if (!contentValue) {
+                                                console.error("Content input is empty");
+                                                return;
+                                        }
 
-					const newEventContent = `# ${formattedDate}\n## ${titleValue}\n${contentValue}`;
-					const toBeWrittenWholeContent = `${newEventContent}\n---\n${this.getExistingEventsContent()}`;
-					console.log("New Event Content:", newEventContent);
-					this.updateTimelineBlock(newEventContent);
-					const newEvent: TimelineEvent = {
-						year: dateParts[0],
-						month: dateParts[1] ? dateParts[1] : undefined,
-						day: dateParts[2] ? dateParts[2] : undefined,
-						title: titleValue,
-						content: toBeWrittenWholeContent,
-					};
+                                        const tagsValue =
+                                                tagsInput.settingEl.querySelector("input")?.value || "";
+                                        const tagList = tagsValue
+                                                .split(/\s+/)
+                                                .filter((t) => t.startsWith("#") && t.length > 1);
+
+                                        const tagsLine = tagList.length ? `${tagList.join(" ")}` : "";
+                                        const newEventContent = `# ${formattedDate}\n${tagsLine ? tagsLine + "\n" : ""}## ${titleValue}\n${contentValue}`;
+                                        const toBeWrittenWholeContent = `${newEventContent}\n---\n${this.getExistingEventsContent()}`;
+                                        console.log("New Event Content:", newEventContent);
+                                        this.updateTimelineBlock(newEventContent);
+                                        const newEvent: TimelineEvent = {
+                                                year: dateParts[0],
+                                                month: dateParts[1] ? dateParts[1] : undefined,
+                                                day: dateParts[2] ? dateParts[2] : undefined,
+                                                title: titleValue,
+                                                tags: tagList.length ? tagList : undefined,
+                                                content: toBeWrittenWholeContent,
+                                        };
 					console.log("New Event:", newEvent);
 					this.onSubmit(newEvent);
 					this.close();
