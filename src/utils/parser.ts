@@ -67,6 +67,7 @@ export function parseTimelineContent(content: string): TimelineEvent[] {
 
         let foundDate = false;
         let foundTitle = false;
+        let tagsParsed = false;
         const sectionStartLine = currentLineNumber;
 
         lines.forEach(line => {
@@ -111,6 +112,12 @@ export function parseTimelineContent(content: string): TimelineEvent[] {
                 );
 
                 foundDate = true;
+            } else if (foundDate && !foundTitle && !tagsParsed && line.startsWith('#') && !line.startsWith('# ') && !line.startsWith('## ')) {
+                const tags = line.split(/\s+/).filter(t => t.startsWith('#'));
+                if (tags.length) {
+                    currentEvent.tags = tags;
+                    tagsParsed = true;
+                }
             } else if (!foundTitle && line.startsWith('## ')) {
                 currentEvent.title = line.replace('## ', '').trim();
                 if (!currentEvent.title) {

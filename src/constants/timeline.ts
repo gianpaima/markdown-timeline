@@ -8,7 +8,8 @@ export const TIMELINE_CLASSES = {
     TIMELINE_DATE: 'timeline-date',
     TIMELINE_POINT: 'timeline-point',
     TIMELINE_CONTENT: 'timeline-content',
-    TIMELINE_MARKDOWN_CONTENT: 'timeline-markdown-content'
+    TIMELINE_MARKDOWN_CONTENT: 'timeline-markdown-content',
+    TIMELINE_TAGS: 'timeline-tags'
 };
 
 export const TIMELINE_ORDER = {

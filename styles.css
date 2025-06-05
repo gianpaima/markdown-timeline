@@ -37,22 +37,31 @@ If your plugin does not need CSS, delete this file.
 }
 
 .timeline-date-point {
-	position: absolute;
-	left: 0;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	height: 32px;
-	width: 105px;
+        position: absolute;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        min-height: 32px;
+        width: 105px;
 }
 
 .timeline-date {
-	overflow: visible;
-	text-align: right;
-	color: var(--text-accent);
-	font-size: 0.9em;
-	white-space: wrap;
-	display: block;
+        overflow: visible;
+        text-align: right;
+        color: var(--text-accent);
+        font-size: 0.9em;
+        white-space: wrap;
+        display: block;
+}
+
+.timeline-tags {
+        text-align: right;
+        color: var(--text-muted);
+        font-size: 0.8em;
+        margin-top: 2px;
+        display: block;
 }
 
 .timeline-point {
